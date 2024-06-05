@@ -1,12 +1,8 @@
 from fastapi import FastAPI, UploadFile
-import fasttext
 import requests
 import urllib.parse
-import assemblyai as aai
 from bs4 import BeautifulSoup
-from huggingface_hub import hf_hub_download
 from fastapi.middleware.cors import CORSMiddleware
-# from speechbrain.pretrained import EncoderASR
 
 app = FastAPI()
 
@@ -75,46 +71,6 @@ async def audio_fon(audio: UploadFile):
 
   return response.json()
  
-
-# @app.post("/translate/en-fon")
-# async def translate_en_fon(sentence: str):
-#   """
-#     Traduction d'une phrase du anglais en fon. \n
-#     En paramètre, la phrase à traduire. \n
-#     En retour, la phrase traduite.
-#   """
-#   sentence = urllib.parse.quote_plus(sentence)
-#   sentence = sentence.replace("+", "%20")
-
-#   url = f"https://translate.glosbe.com/en-fon/{sentence}"
-
-#   page = requests.get(url)
-
-#   soup = BeautifulSoup(page.content, "html.parser")
-
-#   div = soup.find("div", class_="w-full h-full bg-gray-100 h-full border p-2 min-h-25vh sm:min-h-50vh whitespace-pre-wrap break-words")
-  
-#   return div.text
-
-# @app.post("/translate/fon-en")
-# async def translate_fon_en(sentence: str):
-#   """
-#     Traduction d'une phrase du fon en anglais. \n
-#     En paramètre, la phrase à traduire. \n
-#     En retour, la phrase traduite.
-#   """
-#   sentence = urllib.parse.quote_plus(sentence)
-#   sentence = sentence.replace("+", "%20")
-
-#   url = f"https://translate.glosbe.com/fon-en/{sentence}"
-
-#   page = requests.get(url)
-
-#   soup = BeautifulSoup(page.content, "html.parser")
-
-#   div = soup.find("div", class_="w-full h-full bg-gray-100 h-full border p-2 min-h-25vh sm:min-h-50vh whitespace-pre-wrap break-words")
-  
-#   return div.text
 
 @app.get("/")
 async def welcome():
