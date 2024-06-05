@@ -1,8 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile
+import fasttext
 import requests
 import urllib.parse
+import assemblyai as aai
 from bs4 import BeautifulSoup
+from huggingface_hub import hf_hub_download
 from fastapi.middleware.cors import CORSMiddleware
+# from speechbrain.pretrained import EncoderASR
 
 app = FastAPI()
 
@@ -56,7 +60,21 @@ async def translate_fon_fr(sentence: str):
   
   return div.text
 
-@app.post("")
+@app.post("/audio-fon")
+async def audio_fon(audio: UploadFile):
+  """
+   Transcrire un audio fon en texte.
+  """
+  API_URL = "https://api-inference.huggingface.co/models/speechbrain/asr-wav2vec2-dvoice-fongbe"
+ 
+  headers = {"Authorization": "Bearer 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"}
+  
+  data = await audio.read()
+
+  response = requests.post(API_URL, headers=headers, data=data)
+
+  return response.json()
+ 
 
 # @app.post("/translate/en-fon")
 # async def translate_en_fon(sentence: str):
