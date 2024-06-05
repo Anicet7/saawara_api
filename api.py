@@ -63,7 +63,7 @@ async def audio_fon(audio: UploadFile):
   """
   API_URL = "https://api-inference.huggingface.co/models/speechbrain/asr-wav2vec2-dvoice-fongbe"
  
-  headers = {"Authorization": "Bearer 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"}
+  headers = {"Authorization": "Bearer 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"}
   
   data = await audio.read()
 
